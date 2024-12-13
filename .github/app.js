@@ -10,5 +10,15 @@ searchFormElement.addEventListener("submit", handleSearchSubmit);
 function searchCity(city){
     let apiKey = "a3o950fc274379347b6a44aft08a3cb0";
     let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-    console.log(apiURL);
+    axios.get(apiURL).then(updateWeatherInfo);
 }
+function updateWeatherInfo(response) {
+    console.log(response.data);
+    // pulls weather data or city searched
+    let temperatureElement = document.querySelector("#temperature");
+    let temperature = response.data.temperature.current;
+    let cityElement = document.querySelector("#city")
+    cityElement.innerHTML = response.data.city;
+    temperatureElement.innerHTML = Math.round(temperature);
+}
+searchCity("London")
