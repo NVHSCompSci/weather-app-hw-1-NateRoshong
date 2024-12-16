@@ -1,3 +1,12 @@
+function updateWeatherInfo(response) {
+    console.log(response.data);
+    // pulls weather data or city searched
+    let temperatureElement = document.querySelector("#temperature");
+    let temperature = response.data.temperature.current;
+    let descriptionElement = document.querySelector('#description')
+    temperatureElement.innerHTML = Math.round(temperature);
+    descriptionElement.innerHTML = response.data.condition.description;
+}
 function handleSearchSubmit(event){
     event.preventDefault();
     let searchInput = document.querySelector("#search-form-input");
@@ -14,14 +23,4 @@ function searchCity(city){
     let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiURL).then(updateWeatherInfo);
 }
-function updateWeatherInfo(response) {
-    console.log(response.data);
-    // pulls weather data or city searched
-    let temperatureElement = document.querySelector("#temperature");
-    let temperature = response.data.temperature.current;
-    let cityElement = document.querySelector("#city")
-    cityElement.innerHTML = response.data.city;
-    temperatureElement.innerHTML = Math.round(temperature);
-}
 searchCity("London");
-console.log(response.data.condition.description);
